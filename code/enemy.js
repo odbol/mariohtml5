@@ -115,6 +115,11 @@ Mario.Enemy.prototype.Move = function() {
     if (this.Xa < -2) {
         this.Facing = -1;
     }
+
+    // player two control!
+    if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2) && this.OnGround) {
+        this.Facing = -this.Facing;
+    }
     
     this.Xa = this.Facing * sideWaysSpeed;
     
@@ -125,7 +130,8 @@ Mario.Enemy.prototype.Move = function() {
     this.RunTime += Math.abs(this.Xa) + 5;
     
     runFrame = ((this.RunTime / 20) | 0) % 2;
-    
+  
+//console.log('enemy onground: ' + this.OnGround + ' : ' + this.Type);    
     if (!this.OnGround) {
         runFrame = 1;
     }
@@ -152,6 +158,7 @@ Mario.Enemy.prototype.Move = function() {
     } else if (this.Winged) {
         this.Ya = -10;
     }
+//console.log('enemy Winged: ' + this.Winged + ' : ' + this.Type); 
     
     if (this.Winged) {
         runFrame = ((this.WingTime / 4) | 0) % 2;
@@ -241,6 +248,7 @@ Mario.Enemy.prototype.SubMove = function(xa, ya) {
     }
     
     if (collide) {
+//console.log('submove collide: ' + xa + ':'  +this.X);        
         if (xa < 0) {
             this.X = (((this.X - this.Width) / 16) | 0) * 16 + this.Width;
             this.Xa = 0;
@@ -402,3 +410,4 @@ Mario.Enemy.GreenKoopa = 1;
 Mario.Enemy.Goomba = 2;
 Mario.Enemy.Spiky = 3;
 Mario.Enemy.Flower = 4;
+Mario.Enemy.Thwhomp = 5;

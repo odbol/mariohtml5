@@ -33,7 +33,8 @@ Enjine.Keys = {
     Left: 37,
     Up: 38,
     Right: 39,
-    Down: 40
+    Down: 40,
+    P2: 32
 };
 
 Enjine.KeyboardInput = {

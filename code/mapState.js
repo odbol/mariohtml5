@@ -498,7 +498,7 @@ Mario.MapState.prototype.Update = function(delta) {
                     if (this.Data[x][y] > 1 && ((Math.random() * 3) | 0) === 0) {
                         type = Mario.LevelType.Underground;
                     }
-                    
+                //type = Mario.LevelType.Underground;     
                     if (this.Data[x][y] < 0) {
                         if (this.Data[x][y] === -2) {
                             Mario.MarioCharacter.LevelString += "X";

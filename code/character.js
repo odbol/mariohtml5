@@ -579,7 +579,9 @@ Mario.Character.prototype.GetHurt = function() {
         }
         this.InvulnerableTime = 32;
     } else {
-        this.Die();
+        if (!Debug.isInvincible) {
+            this.Die();
+        }
     }
 };
 
