@@ -33,6 +33,46 @@ Mario.LevelRenderer.prototype.Draw = function(context, camera) {
 Mario.LevelRenderer.prototype.DrawStatic = function(context, camera) {
     var x = 0, y = 0, b = 0, frame = null, xTileStart = (camera.X / 16) | 0, xTileEnd = ((camera.X + this.Width) / 16) | 0;
     
+
+    // scan for gaps
+    var gapStart = false, gapEnd = false;
+    for (x = xTileStart; x < xTileEnd + 1; x++) {
+        b = this.Level.GetBlock(x, this.TilesY) & 0xff;
+
+        if (b === 0) { // found empty block!
+
+            if (gapStart === false)
+                gapStart = x - 1;
+        } 
+        else if (gapStart !== false) {
+            gapEnd = x;
+            break; // only control first gap on teh screen
+        }
+    }
+    if (gapEnd !== false) { // don't let them control gaps not completely on the screen
+        
+        if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2)) {
+
+            // move the gap towards mario!
+            for (x = gapStart; x < gapEnd + 1; x++) {
+                var newX = x - 1;
+
+                for (y = 0; y < this.TilesY; y++) { // assume gaps extend the entire height. TODO: fix this!
+                    
+                    b = this.Level.GetBlock(x, y);
+                    b = this.Level.SetBlock(newX, y, b);
+                }
+            }
+
+            for (y = 0; y < this.TilesY; y++) { // assume gaps extend the entire height. TODO: fix this!
+                
+                b = this.Level.GetBlock(gapEnd + 1, y);
+                b = this.Level.SetBlock(gapEnd, y, b);
+            }
+        }
+    }
+
+
     for (x = xTileStart; x < xTileEnd + 1; x++) {
         for (y = 0; y < this.TilesY; y++) {
             b = this.Level.GetBlock(x, y) & 0xff;

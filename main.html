@@ -10,13 +10,17 @@
 		</canvas>
      
 <script>
-var Debug = {};
+var Debug = {
+        pitFrequency: 1
+};
 
 if (/debug=true/.test(window.location.href)) {
         Debug.isInvincible = true;
 
         Debug.drawTileTypes = true;
         Debug.drawTileCoords = false;
+
+        Debug.pitFrequency = 5;
 }
 
 </script>
