@@ -35,7 +35,9 @@ Mario.LevelRenderer.prototype.DrawStatic = function(context, camera) {
     
 
     // scan for gaps
-    var gapStart = false, gapEnd = false;
+    var gapStart = false, 
+        gapEnd = false, 
+        gapYEnd = this.TilesY;
     for (x = xTileStart; x < xTileEnd + 1; x++) {
         b = this.Level.GetBlock(x, this.TilesY) & 0xff;
 
@@ -51,23 +53,27 @@ Mario.LevelRenderer.prototype.DrawStatic = function(context, camera) {
     }
     if (gapEnd !== false) { // don't let them control gaps not completely on the screen
         
+        // find gap height
+        for (y = this.TilesY; y >= 0; y--) {        
+            b = this.Level.GetBlock(x, y) & 0xff;
+            
+            if (b === 0) {
+                break;
+            }
+            gapYEnd = y;
+        }
+
         if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2)) {
 
             // move the gap towards mario!
-            for (x = gapStart; x < gapEnd + 1; x++) {
+            for (x = gapStart; x < gapEnd + 2; x++) {
                 var newX = x - 1;
 
-                for (y = 0; y < this.TilesY; y++) { // assume gaps extend the entire height. TODO: fix this!
+                for (y = this.TilesY; y >= gapYEnd; y--) { 
                     
                     b = this.Level.GetBlock(x, y);
                     b = this.Level.SetBlock(newX, y, b);
                 }
-            }
-
-            for (y = 0; y < this.TilesY; y++) { // assume gaps extend the entire height. TODO: fix this!
-                
-                b = this.Level.GetBlock(gapEnd + 1, y);
-                b = this.Level.SetBlock(gapEnd, y, b);
             }
         }
     }
