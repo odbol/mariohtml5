@@ -9,6 +9,8 @@ Mario.TitleState = function() {
     this.logoY = null;
     this.bounce = null;
     this.font = null;
+
+    this.stateName = 'title';
 };
 
 Mario.TitleState.prototype = new Enjine.GameState();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Infinite Mario - JavaScript</title>
+        <head>
+                <title>You Only Die Once</title>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	</head>
 	<body>
@@ -79,6 +79,36 @@ if (/debug=true/.test(window.location.href)) {
         
         <script src="code/music.js"></script>
 
-        <script>$(document).ready(function() { new Enjine.Application().Initialize(new Mario.LoadingState(), 320, 240) });</script>
+<script>
+
+$(document).ready(function() { 
+        var deathMatch = /deaths=(\d+)/i.exec(window.location.href),
+                numDeaths = deathMatch && deathMatch.length > 1 ? deathMatch[1] : 0,
+                yodo = new Enjine.Application().Initialize(new Mario.LoadingState(), 320, 240)
+
+        setTimeout(function () {
+                for (var i = 0; i < numDeaths; i++) {
+                    Enjine.Resources.Glitchify();
+                }
+        }, 1000);
+        // communicate with the server to know when to start
+        var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);
+
+        connection.onmessage = function (e) {
+                console.log('Server: ' + e.data);
+                
+                // only restart if they're not in a game
+                if (yodo.stateContext.stateName == 'title') {
+                        var numDeaths = +e.data;
+
+                        if (numDeaths > 0) {
+                                window.location.href = window.location.href.replace(/(\?|&)deaths=[^&]*&?/i, '\1').replace('?', '?deaths=' + encodeURIComponent(numDeaths) + '&');
+                        }
+                }
+        };
+
+});
+
+</script>
 	</body>
 </html>

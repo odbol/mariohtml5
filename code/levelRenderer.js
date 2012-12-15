@@ -89,45 +89,45 @@ Mario.LevelRenderer.prototype.DrawStatic = function(context, camera) {
                 frame = this.Background[b % 16][(b / 16) | 0];
                 context.drawImage(Enjine.Resources.Images["map"], frame.X, frame.Y, frame.Width, frame.Height, ((x << 4) - camera.X) | 0, (y << 4) | 0, frame.Width, frame.Height);
       
-if (Debug.drawTileTypes || Debug.drawTileCoords) {
-    context.font = '8px Arial';
-    context.globalAlpha = 0.5;
-    
-    var beh = Mario.Tile.Behaviors[b],
-        label = b;
+                if (Debug.drawTileTypes || Debug.drawTileCoords) {
+                    context.font = '8px Arial';
+                    context.globalAlpha = 0.5;
+                    
+                    var beh = Mario.Tile.Behaviors[b],
+                        label = b;
 
-    if (Debug.drawTileCoords) label = x + ',' + y;
-  
-        if (beh & Mario.Tile.Special !== 0) 
-            context.fillStyle = 'pink';
+                    if (Debug.drawTileCoords) label = x + ',' + y;
+                  
+                        if (beh & Mario.Tile.Special !== 0) 
+                            context.fillStyle = 'pink';
 
-        if (beh & Mario.Tile.Bumpable !== 0) 
-            context.fillStyle = 'brown';
+                        if (beh & Mario.Tile.Bumpable !== 0) 
+                            context.fillStyle = 'brown';
 
-        if (beh & Mario.Tile.Breakable !== 0) 
-            context.fillStyle = 'yellow';
- 
-        if (beh & Mario.Tile.PickUpable !== 0) 
-            context.fillStyle = 'silver';
+                        if (beh & Mario.Tile.Breakable !== 0) 
+                            context.fillStyle = 'yellow';
+                 
+                        if (beh & Mario.Tile.PickUpable !== 0) 
+                            context.fillStyle = 'silver';
 
-        //if (beh & Mario.Tile.Animated !== 0) 
-        //    context.fillStyle = 'black';
+                        //if (beh & Mario.Tile.Animated !== 0) 
+                        //    context.fillStyle = 'black';
 
-        if (beh & Mario.Tile.BlockUpper !== 0) 
-            context.fillStyle = 'red';
+                        if (beh & Mario.Tile.BlockUpper !== 0) 
+                            context.fillStyle = 'red';
 
-        else if (beh & Mario.Tile.BlockAll !== 0) 
-            context.fillStyle = 'blue';
+                        else if (beh & Mario.Tile.BlockAll !== 0) 
+                            context.fillStyle = 'blue';
 
-        else if (beh & Mario.Tile.BlockLower !== 0) 
-            context.fillStyle = 'green';
+                        else if (beh & Mario.Tile.BlockLower !== 0) 
+                            context.fillStyle = 'green';
 
-    
+                    
 
-    context.fillText(label, ((x << 4) - camera.X) | 0, (y << 4) | 0);
-    //context.fillRect(((x << 4) - camera.X) | 0, (y << 4) | 0, frame.Width, frame.Height);
-    context.globalAlpha = 1.0;
-}
+                    context.fillText(label, ((x << 4) - camera.X) | 0, (y << 4) | 0);
+                    //context.fillRect(((x << 4) - camera.X) | 0, (y << 4) | 0, frame.Width, frame.Height);
+                    context.globalAlpha = 1.0;
+                }
 
             }
         }
