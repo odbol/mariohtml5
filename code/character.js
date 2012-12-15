@@ -591,6 +591,9 @@ Mario.Character.prototype.Win = function() {
     this.World.Paused = true;
     this.WinTime = 1;
     Enjine.Resources.PlaySound("exit");
+
+    // YOU ONLY WIN ONCE (since 2nd player died)
+    Enjine.Resources.Glitchify();
 };
 
 Mario.Character.prototype.Die = function() {
@@ -600,6 +603,9 @@ Mario.Character.prototype.Die = function() {
     this.DeathTime = 1;
     Enjine.Resources.PlaySound("death");
     this.SetLarge(false, false);
+
+    // YOU ONLY DIE ONCE
+    Enjine.Resources.Glitchify();
 };
 
 Mario.Character.prototype.GetFlower = function() {
