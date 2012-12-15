@@ -11,7 +11,8 @@
      
 <script>
 var Debug = {
-        pitFrequency: 4
+        pitFrequency: 4,
+        numLives: 4
 };
 
 if (/debug=true/.test(window.location.href)) {
@@ -26,6 +27,7 @@ if (/debug=true/.test(window.location.href)) {
 </script>
 
 
+        <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
 
         <!-- Glitch Engine Includes -->
         <script src="Enjine/glitcher.js"></script>
@@ -84,28 +86,45 @@ if (/debug=true/.test(window.location.href)) {
 $(document).ready(function() { 
         var deathMatch = /deaths=(\d+)/i.exec(window.location.href),
                 numDeaths = deathMatch && deathMatch.length > 1 ? deathMatch[1] : 0,
-                yodo = new Enjine.Application().Initialize(new Mario.LoadingState(), 320, 240)
+                yodo = new Enjine.Application();
+
+        yodo.Initialize(new Mario.LoadingState(), 320, 240);
 
         setTimeout(function () {
                 for (var i = 0; i < numDeaths; i++) {
                     Enjine.Resources.Glitchify();
                 }
         }, 1000);
+
+
         // communicate with the server to know when to start
-        var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);
+        
+/*
+        var connection = new WebSocket('ws://yodo.jit.su/listen', ['soap', 'xmpp']);
 
         connection.onmessage = function (e) {
-                console.log('Server: ' + e.data);
+                var data = e.data;
+                */
+
+
+        
+        var myRootRef = new Firebase('https://yodo.firebaseIO.com/coin');
+
+        myRootRef.on('value', function(snapshot) {
+                var data = snapshot.val();
+
+                //console.log('Server: ' + data);
                 
                 // only restart if they're not in a game
-                if (yodo.stateContext.stateName == 'title') {
-                        var numDeaths = +e.data;
+                if (yodo.stateContext.State.stateName == 'title') {
+                        var newDeaths = +data;
 
-                        if (numDeaths > 0) {
-                                window.location.href = window.location.href.replace(/(\?|&)deaths=[^&]*&?/i, '\1').replace('?', '?deaths=' + encodeURIComponent(numDeaths) + '&');
+                        if (newDeaths != numDeaths) {
+                            // TODO: replace this with changing game state!!!
+                                window.location.href = window.location.href.replace(/(\?|&)deaths=[^&]*&?/i, '$1').replace('?', '?deaths=' + encodeURIComponent(newDeaths) + '&');
                         }
                 }
-        };
+        });
 
 });
 
