@@ -34,6 +34,7 @@ Enjine.Keys = {
     Up: 38,
     Right: 39,
     Down: 40,
+    Enter: 13,
     P2: 32
 };
 
@@ -54,12 +55,16 @@ Enjine.KeyboardInput = {
     
     KeyDownEvent: function(event) {
         this.Pressed[event.keyCode] = true;
-	this.PreventScrolling(event);
+        this.PreventScrolling(event);
     },
     
     KeyUpEvent: function(event) {
         this.Pressed[event.keyCode] = false;
-	this.PreventScrolling(event);
+        this.PreventScrolling(event);
+
+        if (event.keyCode == 13) {
+            Enjine.Resources.Glitchify();
+        }
     },
 
     PreventScrolling: function(event) {

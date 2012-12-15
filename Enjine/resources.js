@@ -41,6 +41,41 @@ Enjine.Resources = {
 		delete this.Images[name];
 		return this;
 	},
+
+    // converts all sprite tilemap images to canvas elements
+    Canvasify: function() {
+        for (var i in this.Images) {
+            var img = this.Images[i],
+                canvas,
+                ctx;
+
+            // don't re-canvasify
+            if (img instanceof HTMLCanvasElement) continue;
+
+            canvas = document.createElement('canvas')
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx = canvas.getContext('2d');
+
+            ctx.globalAlpha = 1;
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.drawImage(img, 0, 0);
+
+            this.Images[i] = canvas;
+        }
+    },
+
+    // glitches out all sprite tiles.
+    Glitchify: function(amt) {
+        this.Canvasify();
+
+        for (var i in this.Images) {
+            var canvas = this.Images[i];
+
+            Glitcher.Glitch(canvas, amt);
+        }
+    },
     
     //***********************/
     //Sounds
