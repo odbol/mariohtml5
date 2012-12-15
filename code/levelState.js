@@ -168,8 +168,12 @@ Mario.LevelState.prototype.Update = function(delta) {
                 }
                 
                 st = this.Level.GetSpriteTemplate(x, y);
-                
+
+
                 if (st !== null) {
+                    //if (st===10 && Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2)){
+                    //    this.Level.SetSpriteTemplate(x, y, new Mario.SpriteTemplate(Mario.Enemy.Flower, false));
+                    //}
                     if (st.LastVisibleTick !== this.Tick - 1) {
                         if (st.Sprite === null || !this.Sprites.Contains(st.Sprite)) {
                             st.Spawn(this, x, y, dir);
@@ -243,6 +247,7 @@ Mario.LevelState.prototype.Update = function(delta) {
     
     this.Camera.X = (Mario.MarioCharacter.XOld + (Mario.MarioCharacter.X - Mario.MarioCharacter.XOld) * delta) - 160;
     this.Camera.Y = (Mario.MarioCharacter.YOld + (Mario.MarioCharacter.Y - Mario.MarioCharacter.YOld) * delta) - 120;
+
 };
 
 Mario.LevelState.prototype.Draw = function(context) {

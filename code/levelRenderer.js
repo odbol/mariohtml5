@@ -32,8 +32,23 @@ Mario.LevelRenderer.prototype.Draw = function(context, camera) {
 
 Mario.LevelRenderer.prototype.DrawStatic = function(context, camera) {
     var x = 0, y = 0, b = 0, frame = null, xTileStart = (camera.X / 16) | 0, xTileEnd = ((camera.X + this.Width) / 16) | 0;
-    
 
+    var pipeX = false,
+        pipeY = false;
+    for (x = xTileStart; x < xTileEnd + 1; x++) {
+        for (y=0; y<this.TilesY; y++){
+            if( (this.Level.GetBlock(x, y) & 0xff) === 10 ) {
+                pipeX = x;
+                pipeY = y;
+                break;
+            }
+        }
+    }
+    if(pipeX && pipeY && Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2)){
+        this.Level.SetSpriteTemplate(pipeX, pipeY, new Mario.SpriteTemplate(Mario.Enemy.Flower, false));
+        st = this.Level.GetSpriteTemplate(pipeX,pipeY);
+        st.Spawn(this, x, y, 0);
+    }
     // scan for gaps
     var gapStart = false, 
         gapEnd = false, 
