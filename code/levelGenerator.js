@@ -20,7 +20,7 @@ Mario.LevelGenerator.prototype = {
         this.Difficulty = difficulty;
         this.Odds[Mario.Odds.Straight] = 20;
         this.Odds[Mario.Odds.HillStraight] = 10;
-        this.Odds[Mario.Odds.Tubes] = 2 + difficulty;
+        this.Odds[Mario.Odds.Tubes] = Debug.pitFrequency * 2 + difficulty;
         this.Odds[Mario.Odds.Jump] = Debug.pitFrequency * 2 * difficulty;
         this.Odds[Mario.Odds.Cannon] = -10 + 5 * difficulty;
         
