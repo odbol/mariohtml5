@@ -43,6 +43,13 @@ Mario.Enemy = function(world, x, y, dir, type, winged) {
     }
     
     this.PicWidth = 16;
+
+    // make a new debouncer for each enemy so they all move with one keypress
+    this.spinAboutFace = _.throttle(function () {
+        this.Facing = -this.Facing;
+
+        Enjine.Resources.PlaySound("switch");
+    }, 150);
 };
 
 Mario.Enemy.prototype = new Mario.NotchSprite();
@@ -85,6 +92,7 @@ Mario.Enemy.prototype.CollideCheck = function() {
     }
 };
 
+
 Mario.Enemy.prototype.Move = function() {
     var i = 0, sideWaysSpeed = 1.75, runFrame = 0;
 
@@ -118,9 +126,7 @@ Mario.Enemy.prototype.Move = function() {
 
     // player two control!
     if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2) && this.OnGround) {
-        this.Facing = -this.Facing;
-
-        Enjine.Resources.PlaySound("switch");
+        this.spinAboutFace();
     }
     
     this.Xa = this.Facing * sideWaysSpeed;

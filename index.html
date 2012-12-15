@@ -12,7 +12,8 @@
 <script>
 var Debug = {
         pitFrequency: 4,
-        numLives: 4
+        numLives: 4,
+        enableFlowerSpawning : false // this feature is incomplete as of yet!
 };
 
 if (/debug=true/.test(window.location.href)) {
@@ -28,6 +29,10 @@ if (/debug=true/.test(window.location.href)) {
 
 
         <script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
+
+        <!-- for debouncer -->
+        <script type='text/javascript' src='underscore-min.js'></script>
+
 
         <!-- Glitch Engine Includes -->
         <script src="Enjine/glitcher.js"></script>
