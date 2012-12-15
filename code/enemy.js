@@ -119,6 +119,8 @@ Mario.Enemy.prototype.Move = function() {
     // player two control!
     if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.P2) && this.OnGround) {
         this.Facing = -this.Facing;
+
+        Enjine.Resources.PlaySound("switch");
     }
     
     this.Xa = this.Facing * sideWaysSpeed;

@@ -75,6 +75,9 @@ Mario.LevelRenderer.prototype.DrawStatic = function(context, camera) {
                     b = this.Level.SetBlock(newX, y, b);
                 }
             }
+
+
+            Enjine.Resources.PlaySound("breakblock");
         }
     }
 

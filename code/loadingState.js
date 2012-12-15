@@ -72,7 +72,8 @@ Mario.LoadingState.prototype.Enter = function() {
 		    .AddSound("powerup", "sounds/powerup.mp3", 1)
 		    .AddSound("sprout", "sounds/sprout.mp3", 1)
 		    .AddSound("stagestart", "sounds/stagestart.mp3", 1)
-		    .AddSound("stomp", "sounds/stomp.mp3", 2);
+		    .AddSound("stomp", "sounds/stomp.mp3", 2)
+            .AddSound("switch", "sounds/switch.mp3", 4);
     } else {
 	    Enjine.Resources.AddSound("1up", "sounds/1-up.wav", 1)
 		    .AddSound("breakblock", "sounds/breakblock.wav")
@@ -90,7 +91,8 @@ Mario.LoadingState.prototype.Enter = function() {
 		    .AddSound("powerup", "sounds/powerup.wav", 1)
 		    .AddSound("sprout", "sounds/sprout.wav", 1)
 		    .AddSound("stagestart", "sounds/stagestart.wav", 1)
-		    .AddSound("stomp", "sounds/stomp.wav", 1);
+            .AddSound("stomp", "sounds/stomp.wav", 1)
+            .AddSound("switch", "sounds/switch.wav", 4);
     }
     
     //load the array of tile behaviors
