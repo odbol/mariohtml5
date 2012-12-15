@@ -232,7 +232,7 @@ Mario.Character.prototype.Move = function() {
         }
     }
     
-    if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Right) && !this.Ducking) {
+    if ((Debug.isAlwaysRunning || Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Right)) && !this.Ducking) {
         if (this.Facing === -1) {
             this.Sliding = false;
         }
@@ -242,7 +242,7 @@ Mario.Character.prototype.Move = function() {
         }
     }
     
-    if ((!Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Left) && !Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Right)) || this.Ducking || this.Ya < 0 || this.OnGround) {
+    if ((!Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Left) && !(Debug.isAlwaysRunning || Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Right))) || this.Ducking || this.Ya < 0 || this.OnGround) {
         this.Sliding = false;  
     }
     
