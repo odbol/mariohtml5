@@ -114,12 +114,26 @@ $(document).ready(function() {
 
         yodo.Initialize(new Mario.LoadingState(), 320, 240);
 
-        setTimeout(function () {
-                for (var i = 0; i < numDeaths; i++) {
-                    Enjine.Resources.Glitchify();
-                }
-        }, 1000);
+        var glitchify = function glitchify(newDeaths, cb) {
+            if (newDeaths > 1) {
+                setTimeout(function () {
+                    var glitchInterval = setInterval(function () {
+                        if (--newDeaths > 1) {
+                            Enjine.Resources.Glitchify();
+                        }
+                        else {
+                            clearInterval(glitchInterval);
+                            glitchInterval = false;
+                            cb && cb();
+                        }
+                    }, 400);
+                }, 1000);
+            } else {
+                cb && cb();
+            }
+        };
 
+        glitchify(numDeaths);
 
         // communicate with the server to know when to start
         
@@ -132,7 +146,8 @@ $(document).ready(function() {
 
 
         
-        var myRootRef = new Firebase('https://yodo.firebaseIO.com/coin');
+        var isFirebaseInit = false,
+            myRootRef = new Firebase('https://yodo.firebaseIO.com/coin');
 
         myRootRef.on('value', function(snapshot) {
                 var data = snapshot.val();
@@ -140,14 +155,38 @@ $(document).ready(function() {
                 //console.log('Server: ' + data);
                 
                 // only restart if they're not in a game
-                if (yodo.stateContext.State.stateName == 'title') {
+                // also don't fire the first time when we first load
+                if (isFirebaseInit && yodo.stateContext.State.stateName == 'title') {
                         var newDeaths = +data;
+
+                        // this is now done when title screen loads
+                        //Enjine.Resources.Unglitchify();
+
+                        glitchify(newDeaths, function () {
+                            // send a fake key event to get started!
+                            Enjine.KeyboardInput.KeyDownEvent({
+                                keyCode: Enjine.Keys.Start,
+                                preventDefault: function () {}
+                            });
+
+                            // unpress!
+                            setTimeout(function () {
+                                Enjine.KeyboardInput.KeyUpEvent({
+                                    keyCode: Enjine.Keys.Start,
+                                    preventDefault: function () {}
+                                });
+                            }, 500);
+                        });
 
                         if (newDeaths != numDeaths) {
                             // TODO: replace this with changing game state!!!
-                                window.location.href = window.location.href.replace(/(\?|&)deaths=[^&]*&?/i, '$1').replace('?', '?deaths=' + encodeURIComponent(newDeaths) + '&');
+                            // window.location.href = window.location.href.replace(/(\?|&)deaths=[^&]*&?/i, '$1').replace('?', '?deaths=' + encodeURIComponent(newDeaths) + '&');
+
+
                         }
                 }
+
+                isFirebaseInit = true;
         });
 
 });

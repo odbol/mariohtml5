@@ -16,6 +16,9 @@ Mario.TitleState = function() {
 Mario.TitleState.prototype = new Enjine.GameState();
 
 Mario.TitleState.prototype.Enter = function() {
+
+    Enjine.Resources.Unglitchify();
+
     this.drawManager = new Enjine.DrawableManager();
     this.camera = new Enjine.Camera();
 
@@ -78,7 +81,7 @@ Mario.TitleState.prototype.Draw = function(context) {
 };
 
 Mario.TitleState.prototype.CheckForChange = function(context) {
-    if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.S)) {
+    if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Start)) {
         context.ChangeState(Mario.GlobalMapState);
     }
 };

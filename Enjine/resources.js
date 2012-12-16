@@ -52,7 +52,7 @@ Enjine.Resources = {
             // don't re-canvasify
             if (img instanceof HTMLCanvasElement) continue;
 
-            canvas = document.createElement('canvas')
+            canvas = document.createElement('canvas');
             canvas.width = img.width;
             canvas.height = img.height;
 
@@ -61,6 +61,8 @@ Enjine.Resources = {
             ctx.globalAlpha = 1;
             ctx.globalCompositeOperation = 'source-over';
             ctx.drawImage(img, 0, 0);
+
+            canvas.originalImage = img;
 
             this.Images[i] = canvas;
         }
@@ -74,6 +76,18 @@ Enjine.Resources = {
             var canvas = this.Images[i];
 
             Glitcher.Glitch(canvas, amt);
+        }
+    },
+
+    // restores sprites to normal
+    Unglitchify: function() {
+
+        for (var i in this.Images) {
+            var canvas = this.Images[i];
+
+            if (canvas.originalImage) {
+                this.Images[i] = canvas.originalImage;
+            }
         }
     },
     
