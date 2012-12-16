@@ -22,7 +22,7 @@ Enjine.Keys = {
     P: 80,
     Q: 81,
     R: 82,
-    S: 37, //83,
+    S: 38, //83,
     T: 84,
     U: 85,
     V: 86,
@@ -35,7 +35,7 @@ Enjine.Keys = {
     Right: 39,
     Down: 40,
     Enter: 13,
-    P2: 39 //32
+    P2: 40 //32
 };
 
 Enjine.KeyboardInput = {
