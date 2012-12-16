@@ -654,6 +654,26 @@ Mario.MapState.prototype.GetY = function() {
 };
 
 Mario.MapState.prototype.CheckForChange = function(context) {
+
+    if (Debug.skipLevelSelect) {
+        var prob = Math.random();
+
+        this.LevelDifficulty = this.WorldNumber + 1;
+        
+        this.LevelType = Mario.LevelType.Overground;
+        if (prob > 0.8) {
+            this.LevelType = Mario.LevelType.Castle;
+        }
+        else if (prob > 0.5) {
+            this.LevelType = Mario.LevelType.Underground;
+        }
+
+        Mario.MarioCharacter.LevelString = this.LevelDifficulty + '-?';
+
+        context.ChangeState(new Mario.LevelState(this.LevelDifficulty, this.LevelType));
+    }
+
+
     if (this.WorldNumber === 8) {
         context.ChangeState(new Mario.WinState());
     }
