@@ -35,7 +35,7 @@ Enjine.Keys = {
     Right: 39,
     Down: 40,
     Enter: 13,
-    P2: 40, //32,
+    P2: 32,
     Start: 32
 };
 

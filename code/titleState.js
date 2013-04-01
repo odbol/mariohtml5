@@ -36,7 +36,12 @@ Mario.TitleState.prototype.Enter = function() {
     this.logo.X = 0, this.logo.Y = 0;
 
     this.font = Mario.SpriteCuts.CreateRedFont();
-    this.font.Strings[0] = { String: "Text 908-505-9656 to Start", X: 50, Y: 113 };
+    this.font.Strings[0] = { String: (
+    		Debug.smsNumber ? 
+    			"Text " + Debug.smsNumber + " to Start" :
+      			"Press Space to Start"
+        ),
+    	X: Debug.smsNumber ? 50 : 75, Y: 113 };
 
     this.logoY = 20;
 
