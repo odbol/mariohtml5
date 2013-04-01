@@ -1,3 +1,26 @@
+YODO MARIO
+==========
+
+You can only play this game once. Each time you die, the game glitches out a little more until it is unplayable. For two players. Play as Mario or as the ground - try to move your chasm to make him fall in! 
+
+P1 controls: 
+  UP - Jump
+
+P2 Controls:
+  Space - Move chasms, control enemy direction
+
+Glitchified for YODO Mario at 2012 Art Hack Day, San Francisco by: 
+Tyler Freeman ( http://odbol.com )
+Jonathan Dehan ( @jedahan  ) 
+Erik van der Molen .
+
+More info: http://arthackday.net/gaffta/22/
+
+Based on:
+
+MARIO
+======
+
 This is a clone of Infinite Mario, written in JavaScript for web browsers using HTML5.
 
 A good demonstration of what can be accomplished with the Canvas and Audio elements.
@@ -5,3 +28,4 @@ A good demonstration of what can be accomplished with the Canvas and Audio eleme
 Background music currently does not work in any browser besides Firefox 4. I think. There were too many problems with other browsers.
 
 Ported from the Java version by Notch (Markus Persson).
+
